@@ -1,0 +1,12 @@
+{
+  "HelpDialogBox": {
+    "dirCreator_BoxHelp": "False",
+    "update_BoxHelp": "False",
+    "installer_BoxHelp": "False",
+    "swap_BoxHelp": "False"
+  },
+  "Config": {
+    "Remove unused packages": "Disabled",
+    "Use OS information to perform Google searches": "Disabled"
+  }
+}
