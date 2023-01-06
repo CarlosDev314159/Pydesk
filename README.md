@@ -2,8 +2,7 @@
 
 [![NPM](https://img.shields.io/npm/l/react)](https://github.com/CarlosDev314159/Pydesk/blob/main/LICENSE) 
 
-# Sobre o Projeto 
-# About the Project
+# Sobre o Projeto (About the Project)
 
 <img src="https://cdn-icons-png.flaticon.com/512/630/630591.png" alt="Brazil flag" width="20" height="20"> Pydesk foi criado a partir de uma ideia de facilitar comandos bash repetitivos, ou até mesmo automatizar ações um pouco mais complexas como criar e configurar uma partição swap etc...
 
