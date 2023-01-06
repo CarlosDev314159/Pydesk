@@ -50,3 +50,9 @@ cd Pydesk
 # Author
 
 Carlos S.
+
+## Contributors
+```python
+# Se você contruibuiu com esse projeto de alguma forma, por favor adicione seu nome aqui em baixo
+# If you contributed to this project in any way, please add your name below.
+
