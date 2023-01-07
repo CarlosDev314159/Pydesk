@@ -9,7 +9,7 @@
 Nessa versão temos as seguintes features:
 - Atualização do sistema e remoção de pacotes que não estão sendo utilizados (Somente com o consetimento do usuário)
 - Instala pacotes de forma automática, bastando o usuário informar o nome do pacote e a quantidade desejada que ele buscará no repositório do próprio sistema, caso ele não ache irá te encaminhar para o Google para tentar ajudar a encontrar o pacote (Usando dados do sistema ,somente com o consetimento do usuário)
-- Criador de diretórios automatizado, crie infinitos diretórios em seu sitema, apenas específícando a quantidade necessária e o nome (opcional)
+- Criador de diretórios automatizado, crie infinitos diretórios em seu sistema, apenas específícando a quantidade necessária e o nome (opcional)
 - Criador de partição Swap, como ele você consegue criar e remover partições swap em seu sistema apenas respondendo os pop-ups que irão aparecer, tudo rápido e bem intuitivo. Não sabe o que é uma partição Swap? Clique no link  <img src="https://cdn-icons-png.flaticon.com/512/892/892662.png" alt="Arrow icon" width="15" height="15"> [O que é SWAP?](https://www.youtube.com/watch?v=S03EXcOkdh4)
 
 
