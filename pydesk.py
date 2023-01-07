@@ -1,7 +1,7 @@
 from tkinter import Tk, messagebox, filedialog
 import time, os, webbrowser, psutil, subprocess, random, string, sys
 from colorama import init
-import json
+import json, distro
 from colorama import Fore
 from notifypy import Notify
 # importing libs
@@ -284,6 +284,7 @@ class SystemUpdater(Notification):
 class Installer(Notification):
     def __init__(self):
         self.message = Notification(Tk)
+        self.dist = distro.linux_distribution()
 
         # Mensagem de ajuda exibida quando o usuário solicita ajuda na tela de instalação
 
@@ -340,7 +341,7 @@ class Installer(Notification):
                     return Main.menu() 
                 # Se a configuração "Use OS information to perform Google searches"
                 if use_os_info:
-                    webbrowser.open(f"https://www.google.com/search?q=Download {software_name} for {self.plataform} {self.distro}")
+                    webbrowser.open(f"https://www.google.com/search?q=Download '{software_name}' for {self.dist[0]} {self.dist[1]}")
                 else:
                     webbrowser.open(f"https://www.google.com/search?q=Download {software_name}")
 
