@@ -40,10 +40,10 @@ git clone https://github.com/CarlosDev314159/Pydesk.git
 cd Pydesk
 
 # executar o arquivo ```pip_installer.py``` para instalar as dependências (execute the file to install the dependencies)
-./pip_installer.py
+python3 pip_installer.py
 
 # executar o projeto (execute the project)
-./pydesk.py
+python3 pydesk.py
 ```
 
 # Author
