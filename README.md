@@ -51,6 +51,6 @@ cd Pydesk
 Carlos S.
 
 ## Contributors
-<img src="https://cdn-icons-png.flaticon.com/512/630/630591.png" alt="Brazil flag" width="20" height="20"> Se você contruibuiu com esse projeto de alguma forma, por favor adicione seu nome aqui em baixo.<br>
+<img src="https://cdn-icons-png.flaticon.com/512/630/630591.png" alt="Brazil flag" width="20" height="20"> Se você contruibuiu com esse projeto de alguma forma, por favor adicione seu nome aqui abaixo.<br>
 <img src="https://cdn-icons-png.flaticon.com/512/3013/3013911.png" alt="United States flag" width="20" height="20"> If you contributed to this project in any way, please add your name below.
 
