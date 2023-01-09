@@ -128,10 +128,7 @@ class Configuration:
             self.configControl()
 
 
-
-
        #end configuration class
-
 
 
   #start notification class
@@ -241,7 +238,7 @@ class SystemUpdater(Notification):
         self.message = Notification(Tk)
         self.help_message_update = "Here you can update your computer quickly and easily without any bash lines."
         self.remove_unused_packages = remove_unused_packages
-        self.show_option_message = "You would like to remove unused packages"
+        self.show_option_message = "Do would you like to remove unused packages?"
 
     def ask_remove_unused_packages(self):
         try:
