@@ -1,6 +1,6 @@
 from tkinter import Tk, messagebox, filedialog
 import time, os, webbrowser, psutil, subprocess, random, string, sys
-from colorama import init
+from colorama import init 
 import json, distro
 from colorama import Fore
 from notifypy import Notify
@@ -88,8 +88,7 @@ class Configuration:
         self.config = {1: {"Remove unused packages": self.showPreference("Config", "Remove unused packages")}, 2: {"Use OS information to perform Google searches": self.showPreference("Config", "Use OS information to perform Google searches")}}
         
         # Exibe as configurações na tela
-        print(f"[1]Remove unused packages -> {self.config[1]['Remove unused packages']}\n")
-        print(f"[2]Use OS information to perform Google searches -> {self.config[2]['Use OS information to perform Google searches']}\n")
+        print(f"[1]Use OS information to perform Google searches -> {self.config[2]['Use OS information to perform Google searches']}\n")
         
         try:
             # Solicita que o usuário insira o número da opção desejada
@@ -98,14 +97,7 @@ class Configuration:
             print("\n")
             # Verifica se a opção escolhida é válida e altera o valor da configuração especificada
             if option == 1:
-                self.changePreferences("Configuration", 
-                "Your preference has been successfully changed!",
-                 "Config",
-                 "Remove unused packages"
-                )
-                self.configControl()
-            elif option == 2:
-                self.changePreferences("Configuration", 
+               self.changePreferences("Configuration", 
                 "Your preference has been successfully changed!",
                  "Config",
                  "Use OS information to perform Google searches"
@@ -123,7 +115,7 @@ class Configuration:
         except ValueError as e:
             # Exibe uma mensagem de erro se o usuário inserir um valor não numérico
             self.message.showError(title="Error", message="Oops, choose an amount in numbers, let's try again.")
-            print(Fore.RED + "Error" + "Error log: " + e)
+            print(f"{Fore.RED}Error log: {e}")
             
             self.configControl()
 
@@ -539,7 +531,7 @@ class Main:
             print(f"\n{Fore.YELLOW}Option not found! Please choose a valid option.\n")
             return self.menu()
         except (KeyboardInterrupt, InterruptedError, EOFError):
-            print(f"\n{Fore.RED}Cancelled by user.\n")
+            print(f"\n{Fore.RED}Canceled by user.\n")
             return sys.exit(1)
         except FileNotFoundError as e:
             Notification(Tk).showError("Error", "Oops, something went wrong, the file 'preferences.json' was not found, please check if it exists, if you consider this to be a bug, please report it!")
