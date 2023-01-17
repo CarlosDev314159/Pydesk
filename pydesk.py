@@ -102,7 +102,7 @@ class Configuration:
                  "Config",
                  "Use OS information to perform Google searches"
                 )
-                self.configControl()
+               self.configControl()
             elif option > 2:
                 # Exibe uma mensagem de erro se a opção for inválida
                 self.message.showError(title="Option Invalid", message="Oops, that option doesn't exist!")
