@@ -6,7 +6,7 @@
 
 <img src="https://cdn-icons-png.flaticon.com/512/630/630591.png" alt="Brazil flag" width="20" height="20"> Pydesk foi criado a partir de uma ideia de facilitar comandos bash repetitivos, ou até mesmo automatizar ações um pouco mais complexas como criar e configurar uma partição swap etc...
 
-Nessa atual versão (0.1) temos as seguintes features:
+Nessa atual versão (0.2) temos as seguintes features:
 - Atualização do sistema e remoção de pacotes que não estão sendo utilizados (Somente com o consetimento do usuário)
 - Instala pacotes de forma automática, bastando o usuário informar o nome do pacote e a quantidade desejada que ele buscará no repositório do próprio sistema, caso ele não ache irá te encaminhar para o Google para tentar ajudar a encontrar o pacote (Usando dados do sistema ,somente com o consetimento do usuário)
 - Criador de diretórios automatizado, crie infinitos diretórios em seu sistema, apenas especificando a quantidade necessária e o nome (opcional)
