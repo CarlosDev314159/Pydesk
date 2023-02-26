@@ -15,7 +15,7 @@ Nessa atual versão (0.2) temos as seguintes features:
 
 <img src="https://cdn-icons-png.flaticon.com/512/3013/3013911.png" alt="United States flag" width="20" height="20"> Pydesk was created from an idea to facilitate repetitive bash commands, or even automate slightly more complex actions like creating and configuring a swap partition etc...
 
-In this current version (0.1), we have the following features:
+In this current version (0.2), we have the following features:
 
 - System update and removal of packages that are not being used (Only with the user's consent)
 - Install packages automatically, the user just needs to inform the name of the package and the quantity desired and it will search the repository of the system itself, if it doesn't find it it will forward you to Google to try to help find the package (Using system data, only with the user's consent)
