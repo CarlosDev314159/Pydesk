@@ -1,9 +1,10 @@
 from tkinter import Tk, messagebox, filedialog
 import time, os, webbrowser, psutil, subprocess, random, string, sys
-from colorama import init 
+from colorama import init
 import json, distro
 from colorama import Fore
 from notifypy import Notify
+
 # importing libs
 
 
@@ -20,53 +21,50 @@ class Configuration:
         self.message._dialogbox.withdraw()
 
         # Cria um dicionário de configurações com os valores atuais lidos do arquivo JSON
-        self.config = {1: {"Remove unused packages": self.showPreference(key="Config", value="Remove unused packages")},
-                       2: {"Use the OS information to do Google searches": self.showPreference(key="Config", value="Use OS information to perform Google searches")}
-                    }
-  
+        self.config = {1: {"Use the OS information to do Google searches": self.showPreference(key="Config",
+                                                                                               value="Use OS information to perform Google searches")}}
 
     def showPreference(self, key, value):
         # Lê o arquivo JSON de preferências e retorna o valor da preferência especificada
         with open("config/preferences.json", "r") as preference:
             data = json.load(preference)
             return data[key][value]
-    
 
     def changePreferences(self, title, message, key, value):
         # Abre o arquivo JSON de preferências e altera o valor da preferência especificada
-            with open("config/preferences.json", "r") as preferences:
-                data = json.load(preferences)
+        with open("config/preferences.json", "r") as preferences:
+            data = json.load(preferences)
 
-                # Se o valor da preferência for "False", exibe uma caixa de diálogo e altera o valor para "True" se confirmado
-                if data[key][value] == "False":
-                    help_box = self.message.showHelp(title, message)
-                    if not(help_box):
-                        pass
-                    else:
-                        data[key][value] = "True"
-                        with open("config/preferences.json", "w") as preferences:
-                            json.dump(data, preferences, indent=2)
-
-            # Se o valor da preferência for "Disabled", altera para "Activated" e exibe uma caixa de diálogo de confirmação
-            with open("config/preferences.json", 'r') as preferences:
-                data = json.load(preferences)
-                if data[key][value] == "Disabled":
+            # Se o valor da preferência for "False", exibe uma caixa de diálogo e altera o valor para "True" se confirmado
+            if data[key][value] == "False":
+                help_box = self.message.showHelp(title, message)
+                if not (help_box):
+                    pass
+                else:
+                    data[key][value] = "True"
                     with open("config/preferences.json", "w") as preferences:
-                        data[key][value] = "Activated"
                         json.dump(data, preferences, indent=2)
-                    help_box = self.message.popUp(title, message, "images/settings.png")
-                    if not(help_box):
-                        pass
 
-                # Se o valor da preferência for "Activated", altera para "Disabled" e exibe uma caixa de diálogo de confirmação    
-                elif data[key][value] == "Activated":
-                    with open("config/preferences.json", "w") as preferences:
-                        data[key][value] = "Disabled"
-                        json.dump(data, preferences, indent=2)
-                    changed = self.message.popUp("Configuration", "Your preference has been successfully changed!", "images/settings.png")
-                    return changed
-                
-    
+        # Se o valor da preferência for "Disabled", altera para "Activated" e exibe uma caixa de diálogo de confirmação
+        with open("config/preferences.json", 'r') as preferences:
+            data = json.load(preferences)
+            if data[key][value] == "Disabled":
+                with open("config/preferences.json", "w") as preferences:
+                    data[key][value] = "Activated"
+                    json.dump(data, preferences, indent=2)
+                help_box = self.message.popUp(title, message, "images/settings.png")
+                if not (help_box):
+                    pass
+
+            # Se o valor da preferência for "Activated", altera para "Disabled" e exibe uma caixa de diálogo de confirmação
+            elif data[key][value] == "Activated":
+                with open("config/preferences.json", "w") as preferences:
+                    data[key][value] = "Disabled"
+                    json.dump(data, preferences, indent=2)
+                changed = self.message.popUp("Configuration", "Your preference has been successfully changed!",
+                                             "images/settings.png")
+                return changed
+
     def seeConfig(self, value):
         # Abre o arquivo JSON de preferências e lê o valor da configuração especificada
         with open("config/preferences.json", "r") as preferences:
@@ -77,7 +75,6 @@ class Configuration:
         else:
             return True
 
-
     def configControl(self):
         title = "Configurations"
         print('\033[1m', "-" * 64, '\033[0m')
@@ -85,11 +82,13 @@ class Configuration:
         print('\033[1m', "-" * 64, '\033[0m')
 
         # Lê as configurações atuais do arquivo JSON e as armazena no dicionário self.config
-        self.config = {1: {"Remove unused packages": self.showPreference("Config", "Remove unused packages")}, 2: {"Use OS information to perform Google searches": self.showPreference("Config", "Use OS information to perform Google searches")}}
-        
+        self.config = {1: {"Use OS information to perform Google searches": self.showPreference("Config",
+                                                                                                "Use OS information to perform Google searches")}}
+
         # Exibe as configurações na tela
-        print(f"[1]Use OS information to perform Google searches -> {self.config[2]['Use OS information to perform Google searches']}\n")
-        
+        print(
+            f"[1]Use OS information to perform Google searches -> {self.config[1]['Use OS information to perform Google searches']}\n")
+
         try:
             # Solicita que o usuário insira o número da opção desejada
             print("Press '0' to back to menu\n")
@@ -97,39 +96,37 @@ class Configuration:
             print("\n")
             # Verifica se a opção escolhida é válida e altera o valor da configuração especificada
             if option == 1:
-               self.changePreferences("Configuration", 
-                "Your preference has been successfully changed!",
-                 "Config",
-                 "Use OS information to perform Google searches"
-                )
-               self.configControl()
-            elif option > 2:
+                self.changePreferences("Configuration",
+                                       "Your preference has been successfully changed!",
+                                       "Config",
+                                       "Use OS information to perform Google searches"
+                                       )
+                self.configControl()
+            elif option > 1:
                 # Exibe uma mensagem de erro se a opção for inválida
                 self.message.showError(title="Option Invalid", message="Oops, that option doesn't exist!")
                 print(Fore.RED + "Error")
-                
+
                 self.configControl()
             else:
-               # Retorna ao menu principal se o usuário inserir o número "0"
-               Main.menu()
+                # Retorna ao menu principal se o usuário inserir o número "0"
+                Main.menu()
         except ValueError as e:
             # Exibe uma mensagem de erro se o usuário inserir um valor não numérico
             self.message.showError(title="Error", message="Oops, choose an amount in numbers, let's try again.")
             print(f"{Fore.RED}Error log: {e}")
-            
+
             self.configControl()
 
+    # end configuration class
 
-       #end configuration class
 
-
-  #start notification class
+# start notification class
 class Notification:
     def __init__(self, tk):
         self._dialogbox = Tk()
         self._dialogbox.withdraw()
         self._popup = Notify()
-        
 
     def showInfo(self, title, message):
         return messagebox.showinfo(title, message)
@@ -156,17 +153,16 @@ class Notification:
         self._popup.timeout = duration * 1000  # timeout is in milliseconds
         return self._popup.send()
 
-
     # end notification class
 
-
     # start  directory creator class
+
+
 class DirectoryCreator(Notification):
     def __init__(self):
         self.message = Notification(Tk)
         self.help_message_directory = "Here you can create multiple directories in a fast and simple way."
         self.permission_error_message = "You don't have permission to access this directory, please choose another one."
-    
 
     def handle_permission_error(self):
         self.message.showError("Permission Denied", self.permission_error_message)
@@ -183,15 +179,13 @@ class DirectoryCreator(Notification):
 
     def read_directory_names(self):
         return [input("Type directory's name:\n") for _ in range(self.ask_amount_of_directories())]
-    
 
     def generate_random_name(self, size=6, chars=string.ascii_uppercase + string.digits):
         return ''.join(random.choice(chars) for _ in range(size))
-    
-  
 
     def create_directories(self):
-        Configuration().changePreferences("What this does?!", self.help_message_directory, "HelpDialogBox", "dirCreator_BoxHelp")
+        Configuration().changePreferences("What this does?!", self.help_message_directory, "HelpDialogBox",
+                                          "dirCreator_BoxHelp")
 
         place = filedialog.askdirectory(title="Where would you like to create?")
         if not place:
@@ -202,7 +196,8 @@ class DirectoryCreator(Notification):
 
         path = place
         os.chdir(path)
-        print(f"\n{Fore.BLUE}If you don't want to name your directories now, just press {Fore.GREEN} Enter {Fore.BLUE} to create random names \n")
+        print(
+            f"\n{Fore.BLUE}If you don't want to name your directories now, just press {Fore.GREEN} Enter {Fore.BLUE} to create random names \n")
         for dirname in self.read_directory_names():
             try:
                 if dirname == "":
@@ -221,10 +216,11 @@ class DirectoryCreator(Notification):
         print("\n")
         return Main.menu()
 
-    #end directory creator class
+    # end directory creator class
+
+    # start system update class
 
 
-    #start system update class
 class SystemUpdater(Notification):
     def __init__(self, remove_unused_packages=False):
         self.message = Notification(Tk)
@@ -234,15 +230,15 @@ class SystemUpdater(Notification):
 
     def ask_remove_unused_packages(self):
         try:
-           answer = self.message.showOptions(title="A Question...", message=self.show_option_message)
-           if answer:
+            answer = self.message.showOptions(title="A Question...", message=self.show_option_message)
+            if answer:
                 self.remove_unused_packages = True
         except Exception as err:
             self.message.showError(title="Error", message=err)
-    
-    
+
     def update(self):
-        Configuration().changePreferences(title="What this does?!", message=self.help_message_update, key="HelpDialogBox", value="update_BoxHelp")
+        Configuration().changePreferences(title="What this does?!", message=self.help_message_update,
+                                          key="HelpDialogBox", value="update_BoxHelp")
         self.print_title("Update the system")
         self.ask_remove_unused_packages()
         update_command = "sudo apt update && sudo apt full-upgrade -y"
@@ -252,7 +248,7 @@ class SystemUpdater(Notification):
         self.message.popUp("Successfully Updated", "Your computer is up to date!", "images/accept.png")
         time.sleep(0.5)
         return Main.menu()
-    
+
     @staticmethod
     def print_title(title):
         print("\n")
@@ -260,16 +256,11 @@ class SystemUpdater(Notification):
         print('\033[1m', title.center(64), '\033[0m')
         print('\033[1m', "-" * 64, '\033[0m')
 
-        
-    
-         #end system update class
+        # end system update class
+
+        # start installer class
 
 
-
-
-
-
-        #start installer class
 class Installer(Notification):
     def __init__(self):
         self.message = Notification(Tk)
@@ -278,22 +269,22 @@ class Installer(Notification):
         # Mensagem de ajuda exibida quando o usuário solicita ajuda na tela de instalação
 
         self.help_message_installer = "Here you can install packages on your computer quickly and easily, without a bash command. If the package is not found, we will redirect you to Google to help you find and download it. By default, data from your operating system will not be sent to improve searches. but you can activate in the 'Configuration' option"
-        
+
         # Mensagem de ajuda exibida quando o software solicitado não é encontrado no repositório de pacotes
-        
+
         self.help_message_package = "Sorry, this software is not in your package repository, but don't worry! I will help you find it. let's redirect it to Google."
 
     # Lê a configuração "Use OS information to perform Google searches"
     config_args = Configuration().seeConfig("Use OS information to perform Google searches")
 
-
     def installer(self, use_os_info=config_args):
-        Configuration().changePreferences("What this does?!", self.help_message_installer, "HelpDialogBox", "installer_BoxHelp")
+        Configuration().changePreferences("What this does?!", self.help_message_installer, "HelpDialogBox",
+                                          "installer_BoxHelp")
         title = "Installer"
         print('\033[1m', "-" * 64, '\033[0m')
         print('\033[1m', title.center(64), '\033[0m')
         print('\033[1m', "-" * 64, '\033[0m')
-       
+
         # Loop infinito para solicitar o valor de "amount" até que um valor válido seja digitado
         while True:
             try:
@@ -305,38 +296,40 @@ class Installer(Notification):
                 # Exibe uma mensagem de erro e volta para o início do loop
                 self.message.showError(title="Error", message="Oops, choose an amount in numbers, let's try again.")
                 print(Fore.RED + "Error")
-                
-    # Loop para instalar o número de softwares solicitado pelo usuário
-        
+
+        # Loop para instalar o número de softwares solicitado pelo usuário
+
         for _ in range(amount):
-            
+
             # Solicita o nome do software a ser instalado
             software_name = input("Type the software name:\n")
-           
+
             # Instala o software com o comando "sudo apt install"
             install_command = os.system(f"sudo apt install {software_name}")
-            
+
             # Verifica se o software foi encontrado no repositório de pacotes
             if install_command == 25600:
                 # Exibe uma mensagem de erro e solicita ao usuário se deseja continuar ou voltar ao menu principal
                 print(Fore.RED + "Error")
-                warning_not_found = self.message.showHelp(title="This software isn't found", message=self.help_message_package)
-                
+                warning_not_found = self.message.showHelp(title="This software isn't found",
+                                                          message=self.help_message_package)
+
                 # Se o usuário escolheu voltar ao menu principal, retorna à função "menu"
-                if not(warning_not_found):
+                if not (warning_not_found):
                     print("\n")
                     print(Fore.RED + " Canceled by user")
                     print("\n")
-                    return Main.menu() 
-                # Se a configuração "Use OS information to perform Google searches"
+                    return Main.menu()
+                    # Se a configuração "Use OS information to perform Google searches"
                 if use_os_info:
-                    webbrowser.open(f"https://www.google.com/search?q=Download '{software_name}' for {self.dist[0]} {self.dist[1]}")
+                    webbrowser.open(
+                        f"https://www.google.com/search?q=Download '{software_name}' for {self.dist[0]} {self.dist[1]}")
                 else:
                     webbrowser.open(f"https://www.google.com/search?q=Download {software_name}")
 
         return Main.menu()
 
-        #end installer class
+        # end installer class
 
 
 class SwapModificator(Notification):
@@ -346,36 +339,38 @@ class SwapModificator(Notification):
         self.help_message_swap = "Here you can make changes in a simple and intuitive way. Do you know what Swap is?\nThe swap space is located on disk, in the form of a partition or a file. Linux uses it to extend the memory available to processes, storing infrequently used pages there. We usually configure swap space during the operating system installation."
         self.error_message_swap = "Some error occurred when creating your swap file"
         self.total_memory = psutil.virtual_memory().total / 1024 ** 3
-    
+        self.root_partition = psutil.disk_partitions()[0][2]
+        self.info_message_fs = "Your file system (BTRFS) does not allow the creation of a swap file because snapshot-oriented file systems, like BTRFS, are not recommended for use as swap systems as swap operations are intensive in write operations and can harm the integrity of the data. It is recommended to use a standard file system like ext4."
+
+    def get_partitions(self):
+        partitions = psutil.disk_partitions()
+        return "".join([f"Partitions: # {i+1}\nDevice: {partition.device}\nMountpoint: {partition.mountpoint}\nFile system type: {partition.fstype}\n\n" for i, partition in enumerate(partitions)])
+
     def get_memory(self):
         # Exibe a quantidade de memória RAM já convertida em gigabytes
         total_memory = psutil.virtual_memory().total / 1024 ** 3
         avaliable_memory = psutil.virtual_memory().available / 1024 ** 3
         used_memory = psutil.virtual_memory().used / 1024 ** 3
 
-
         system_memory = {
             "title": "RAM:",
-            "total":  total_memory,
-            "available":  avaliable_memory,
-            "used":  used_memory,
+            "total": total_memory,
+            "available": avaliable_memory,
+            "used": used_memory,
         }
 
-        return(f"{system_memory['title']}\n"
-                    f"Total: {round(system_memory['total'])}GB\n"
-                    f"Free: {round(system_memory['available'])}GB\n"
-                    f"Used: {round(system_memory['used'])}GB\n"
+        return (f"{system_memory['title']}\n"
+                f"Total: {round(system_memory['total'])}GB\n"
+                f"Free: {round(system_memory['available'])}GB\n"
+                f"Used: {round(system_memory['used'])}GB\n"
                 )
-    
-    
-    
+
     def show_paths(self, path_root="/", path_home="/home"):
         # Exibe os Paths de arquivos
 
         # Define os Paths
         disk_root = psutil.disk_usage(path=path_root)
         disk_home = psutil.disk_usage(path=path_home)
-
 
         # Path / -> root
         total_root = disk_root.total
@@ -391,20 +386,19 @@ class SwapModificator(Notification):
 
         system_root = {
             "path": path_root,
-            "total": round((total_root / 1024**3)),
-            "used": round((used_root / 1024**3)),
-            "free": round((free_root / 1024**3)),
+            "total": round((total_root / 1024 ** 3)),
+            "used": round((used_root / 1024 ** 3)),
+            "free": round((free_root / 1024 ** 3)),
             "percent": percent_root
         }
 
         system_home = {
             "path": path_home,
-            "total": round((total_home / 1024**3)),
-            "used": round((used_home / 1024**3)),
-            "free": round((free_home / 1024**3)),
+            "total": round((total_home / 1024 ** 3)),
+            "used": round((used_home / 1024 ** 3)),
+            "free": round((free_home / 1024 ** 3)),
             "percent": percent_home
         }
-        
 
         if disk_home == disk_root:
             return (f"Path: {system_root['path']}\n"
@@ -426,8 +420,8 @@ class SwapModificator(Notification):
                     f"Usage percentage: {system_home['percent']}%\n\n"
 
                     f"{self.get_memory()}\n"
-            )
-            
+                    f"{self.get_partitions()}\n"
+                    )
 
     def create_swap_file(self, gigabytes):
         # Cria o arquivo de swap com o tamanho especificado em gigabytes
@@ -483,7 +477,8 @@ class SwapModificator(Notification):
         # Verifica se o arquivo de swap está ativo
         if self.get_swap_status():
             # Pergunta ao usuário se deseja sobrescrever o arquivo de swap existente
-            response = self.message.showHelp("Swap Modificator", "You already have a swap file on your computer, do you want to overwrite it?")
+            response = self.message.showHelp("Swap Modificator",
+                                             "You already have a swap file on your computer, do you want to overwrite it?")
             if not response:
                 print(f"\n{Fore.RED}Canceled by user\n")
                 return Main.menu()
@@ -496,14 +491,23 @@ class SwapModificator(Notification):
                     print(f"Error log: {e}")
                     return Main.menu()
         else:
-            try:# Pergunta ao usuário quantos gigabytes deseja adicionar ao arquivo de swap
-                gigabytes = int(input("How many gigabytes would you like to add to swap?\n"))
-                if gigabytes < self.total_memory / 2:
-                    self.message.showWarning("Invalid value", "Invalid length value specified,\nThe value in gigabytes should be close to the amount of RAM in your operating system.")
+            if self.root_partition == "btrfs":
+                self.showInfo(title="File system not supported", message=self.info_message_fs)
+                print(f"\n{Fore.RED}Error log: File system not supported\n")
+                return Main.menu()
+            try:  # Pergunta ao usuário quantos gigabytes deseja adicionar ao arquivo de swap
+                gigabytes = int(input("How many gigabytes would you like to add to swap?\nPress '0' to cancel\n"))
+                if gigabytes == 0:
+                    print(f"\n{Fore.RED}Cancelled by user.\n")
+                    return Main.menu()
+                elif gigabytes < self.total_memory / 2:
+                    self.message.showWarning("Invalid value",
+                                             "Invalid length value specified,\nThe value in gigabytes should be close to the amount of RAM in your operating system.")
                     print(f"{Fore.YELLOW}\nWarning log: Invalid length value specified\n")
                     return self.swap_modificator()
             except ValueError as e:
-                self.message.showWarning("Invalid value", "Invalid length value specified,\nOnly values of the type integer are allowed.")
+                self.message.showWarning("Invalid value",
+                                         "Invalid length value specified,\nOnly values of the type integer are allowed.")
                 print(f"{Fore.RED}Error log: {e}\n")
                 return Main.menu()
 
@@ -514,29 +518,29 @@ class SwapModificator(Notification):
 
 
 class Main:
-    
+
     @classmethod
     def menu(self):
-        title = "PyDesk v0.1"
+        title = "PyDesk v0.2"
         print('\033[1m', Fore.YELLOW + "-" * 64, '\033[0m')
         print('\033[1m', title.center(64), '\033[0m')
         print('\033[1m', Fore.BLUE + "-" * 64, '\033[0m')
-     
 
-         # Lê a opção do usuário
+        # Lê a opção do usuário
         try:
             option = int(input(
                 "[1]Update\n[2]Installer\n[3]Directory Creator\n[4]Swap Modificator\n[5]Configuration\n[6]Report a bug\n[7]Exit\nChoose a option: "))
         except ValueError:
             print(f"\n{Fore.YELLOW}Option not found! Please choose a valid option.\n")
             return self.menu()
-        except (KeyboardInterrupt, InterruptedError, EOFError):
-            print(f"\n{Fore.RED}Canceled by user.\n")
-            return sys.exit(1)
         except FileNotFoundError as e:
-            Notification(Tk).showError("Error", "Oops, something went wrong, the file 'preferences.json' was not found, please check if it exists, if you consider this to be a bug, please report it!")
+            Notification(Tk).showError("Error",
+                                       "Oops, something went wrong, the file 'preferences.json' was not found, please check if it exists, if you consider this to be a bug, please report it!")
             print(f"\n{Fore.RED}Error log: {e}\n")
             return self.menu()
+        except (KeyboardInterrupt, InterruptedError, EOFError):
+            print(f"\n{Fore.RED}Cancelled by user.\n")
+            return sys.exit(1)
 
 
         # Instanciando as classes
@@ -563,12 +567,11 @@ class Main:
             Notification(Tk).popUp("Report a Bug", "Thanks for your report!", "images/bug-report.png")
             return self.menu()
         elif option == 7:
-                sys.exit()
+            sys.exit()
         else:
             Notification(Tk).showError("Error", "Option not found! Please choose a valid option.")
             print(Fore.RED + "Error")
             return self.menu()
-    
 
 # Start the application
 app = Main()
